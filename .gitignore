@@ -1,0 +1,104 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related (Android Studio, IntelliJ IDEA)
+*.iml
+.idea/
+*.ipr
+*.iws
+*.idea_modules/
+
+# Visual Studio Code related
+.vscode/
+
+# Flutter/Dart/Pub related
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+doc/api/
+
+# Generated files
+*.g.dart
+*.freezed.dart
+*.gr.dart
+*.gen.dart
+
+# Web related
+web/
+web/.dart_tool/
+web/build/
+
+# Symbolication related
+app.dill
+
+# Dependency directories
+ios/
+ios/Pods/
+ios/Podfile.lock
+ios/Runner.xcworkspace/
+ios/Runner.xcodeproj/project.xcworkspace/
+
+# Android related
+android/
+android/.gradle/
+android/.idea/
+android/build/
+android/local.properties
+android/gradlew
+android/gradlew.bat
+android/key.properties
+
+# iOS related
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flutter-plugin
+ios/Flutter/flutter_export_environment.sh
+ios/Runner.xcworkspace/
+ios/Runner.xcodeproj/project.xcworkspace/
+ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme
+
+# macOS related
+macos/
+macos/Flutter/ephemeral/
+macos/Flutter/Flutter-Generated.xcconfig
+macos/Flutter/GeneratedPluginRegistrant.*
+
+# Linux related
+linux/
+linux/.cmake/
+linux/build/
+
+# Windows related
+windows/
+windows/.vs/
+windows/build/
+
+# Secrets and sensitive files
+*.env
+*.key
+*.pem
+*.cer
+*.jks
+*.keystore
+
+# Dependency lock files (optional, include if you want reproducible builds)
+# pubspec.lock
+
+# Example-specific files (if you have example apps)
+#example/build/
+#example/.dart_tool/
