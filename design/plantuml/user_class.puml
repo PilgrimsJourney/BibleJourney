@@ -1,0 +1,18 @@
+@startuml
+class User {
+  -String _language
+  -UserReadingPlan? _readingPlan
+  +String language
+  +UserReadingPlan? readingPlan
+  +notifyListeners()
+}
+class UserStorageAdapter {
+  -Box<User> _userBox
+  -User? _user
+  +setUser()
+  +loadUser()
+  +_saveUser()
+}
+User --> UserStorageAdapter : notifies
+UserStorageAdapter --> Hive : saves to
+@enduml
