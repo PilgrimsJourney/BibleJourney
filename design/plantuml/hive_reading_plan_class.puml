@@ -1,0 +1,90 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+' Core Classes
+package "models/reading_plan" {
+	class ReadingPlan {
+	  -String name
+	  -List<Stream> streams
+	}
+
+	class Stream {
+	  -String name
+	  -List<Reading> readings
+	}
+
+	class Reading {
+	  -String reference
+	  -bool isCompleted
+	}
+
+	class UserReadingPlan {
+	  -String name
+	  -List<Stream> streams
+	  +UserReadingPlan fromReadingPlan(ReadingPlan plan, List<int> streamIndices)
+	  +void addStreamFromPlan(ReadingPlan plan, int streamIndex)
+	  +void removeStreamByName(String name)
+	}
+
+	class User {
+	  -String language
+	  -UserReadingPlan? readingPlan
+	}
+}
+
+' Hive Adapters
+package "adapters/hive_adapters" {
+	class ReadingAdapter {
+	  -int typeId
+	  +Reading read(BinaryReader reader)
+	  +void write(BinaryWriter writer, Reading obj)
+	}
+
+	class StreamAdapter {
+	  -int typeId
+	  +Stream read(BinaryReader reader)
+	  +void write(BinaryWriter writer, Stream obj)
+	}
+
+	class ReadingPlanAdapter {
+	  -int typeId
+	  +ReadingPlan read(BinaryReader reader)
+	  +void write(BinaryWriter writer, ReadingPlan obj)
+	}
+
+	class UserReadingPlanAdapter {
+	  -int typeId
+	  +UserReadingPlan read(BinaryReader reader)
+	  +void write(BinaryWriter writer, UserReadingPlan obj)
+	}
+
+	class UserAdapter {
+	  -int typeId
+	  +User read(BinaryReader reader)
+	  +void write(BinaryWriter writer, User obj)
+	}
+}
+
+' Formatting
+UserAdapter -[hidden]- UserReadingPlanAdapter
+UserReadingPlanAdapter -[hidden]- ReadingPlanAdapter
+ReadingPlanAdapter -[hidden]- StreamAdapter
+StreamAdapter -[hidden]- ReadingAdapter
+UserAdapter -[hidden] User
+
+' Hive Adapter Relationships
+ReadingAdapter .> Reading : serializes
+StreamAdapter .> Stream : serializes
+ReadingPlanAdapter .> ReadingPlan : serializes
+UserReadingPlanAdapter .> UserReadingPlan : serializes
+UserAdapter .> User : serializes
+
+' Relationships
+ReadingPlan "1" -- "0..*" Stream : contains
+Stream "1" -- "0..*" Reading : contains
+UserReadingPlan ..> ReadingPlan : uses
+UserReadingPlan "1" --- "0..*" Stream : has
+User "1" -- "0..1" UserReadingPlan : has
+
+@enduml

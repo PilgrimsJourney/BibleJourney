@@ -17,7 +17,7 @@ rectangle "Bible Journey" {
 	User ---> (Change Language)
 }
 
-note right
+note right of "Bible Journey"
   Optional features:
   - Set Daily Reminder
   - View Seasonal Recommendations
