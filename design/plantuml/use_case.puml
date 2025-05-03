@@ -1,0 +1,29 @@
+@startuml
+
+left to right direction
+
+actor User
+
+rectangle "Bible Journey" {
+	User --> (Select Reading Plan)
+	User --> (Select Streams to Follow)
+	User --> (View Next Reading in Stream)
+	User --> (Mark Reading as Completed)
+	User --> (Navigate Streams Independently)
+	User --> (Add Stream from Another Plan)
+	User --> (Remove Stream)
+	User --> (Select New Plan/Stream on Completion)
+	User --> (Cancel Current Plan)
+	User --> (Change Language)
+}
+
+note right
+  Optional features:
+  - Set Daily Reminder
+  - View Seasonal Recommendations
+  - Create/Edit/Delete Custom Plan
+  - Export/Import Custom Plan
+  - Review Reading History
+end note
+
+@enduml
