@@ -10,11 +10,11 @@ rectangle "Bible Journey" {
 	User --> (View Next Reading in Stream)
 	User --> (Mark Reading as Completed)
 	User --> (Navigate Streams Independently)
-	User --> (Add Stream from Another Plan)
-	User --> (Remove Stream)
-	User --> (Select New Plan/Stream on Completion)
-	User --> (Cancel Current Plan)
-	User --> (Change Language)
+	User ---> (Add Stream from Another Plan)
+	User ---> (Remove Stream)
+	User ---> (Select New Plan/Stream on Completion)
+	User ---> (Cancel Current Plan)
+	User ---> (Change Language)
 }
 
 note right
