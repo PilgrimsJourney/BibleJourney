@@ -31,14 +31,18 @@ class StreamAdapter extends TypeAdapter<Stream> {
   @override
   Stream read(BinaryReader reader) {
     return Stream(
-      name: reader.readString(),
+      id: reader.readString(),
+      nameKey: reader.readString(),
+      descriptionKey: reader.readString(),
       readings: (reader.readList() as List<dynamic>).cast<Reading>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Stream obj) {
-    writer.writeString(obj.name);
+    writer.writeString(obj.id);
+    writer.writeString(obj.nameKey);
+    writer.writeString(obj.descriptionKey);
     writer.writeList(obj.readings);
   }
 }
@@ -51,14 +55,18 @@ class ReadingPlanAdapter extends TypeAdapter<ReadingPlan> {
   @override
   ReadingPlan read(BinaryReader reader) {
     return ReadingPlan(
-      name: reader.readString(),
+      id: reader.readString(),
+      nameKey: reader.readString(),
+      descriptionKey: reader.readString(),
       streams: (reader.readList() as List<dynamic>).cast<Stream>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, ReadingPlan obj) {
-    writer.writeString(obj.name);
+    writer.writeString(obj.id);
+    writer.writeString(obj.nameKey);
+    writer.writeString(obj.descriptionKey);
     writer.writeList(obj.streams);
   }
 }
@@ -71,14 +79,16 @@ class UserReadingPlanAdapter extends TypeAdapter<UserReadingPlan> {
   @override
   UserReadingPlan read(BinaryReader reader) {
     return UserReadingPlan(
-      name: reader.readString(),
+      nameKey: reader.readString(),
+      descriptionKey: reader.readString(),
       streams: (reader.readList() as List<dynamic>).cast<Stream>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, UserReadingPlan obj) {
-    writer.writeString(obj.name);
+    writer.writeString(obj.nameKey);
+    writer.writeString(obj.descriptionKey);
     writer.writeList(obj.streams);
   }
 }

@@ -26,7 +26,7 @@ class StreamWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: Text(
-            stream.name,
+            stream.id,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),

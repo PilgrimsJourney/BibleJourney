@@ -5,8 +5,8 @@ import 'views/reading_plan_selector.dart';
 import 'views/reading_view.dart';
 
 class MyHomePage extends StatefulWidget {
-    @override
-    State<MyHomePage> createState() => _MyHomePageState();
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -17,7 +17,6 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        // page = GeneratorPage();
         page = ReadingView();
         break;
       case 1:
@@ -31,44 +30,43 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     return LayoutBuilder(builder: (context, constraints) {
-        return Scaffold(
-          body: Row(
-            children: [
-              SafeArea(
-                child: NavigationRail(
-                  extended: constraints.maxWidth >= 600,
-                  destinations: [
-                    NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      label: Text('Home'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.favorite),
-                      label: Text('Favorites'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.book),
-                      label: Text('Plans'),
-                    ),
-                  ],
-                  selectedIndex: selectedIndex,
-                  onDestinationSelected: (value) {
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
-                ),
+      return Scaffold(
+        body: Row(
+          children: [
+            SafeArea(
+              child: NavigationRail(
+                extended: constraints.maxWidth >= 600,
+                destinations: [
+                  NavigationRailDestination(
+                    icon: Icon(Icons.home),
+                    label: Text('Home'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.favorite),
+                    label: Text('Favorites'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.book),
+                    label: Text('Plans'),
+                  ),
+                ],
+                selectedIndex: selectedIndex,
+                onDestinationSelected: (value) {
+                  setState(() {
+                    selectedIndex = value;
+                  });
+                },
               ),
-              Expanded(
-                child: Container(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: page,
-                ),
+            ),
+            Expanded(
+              child: Container(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: page,
               ),
-            ],
-          ),
-        );
-      }
-    );
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

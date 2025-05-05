@@ -57,7 +57,7 @@ class ReadingView extends StatelessWidget {
         return CustomScrollView(
           slivers: [
             SliverAppBar.medium(
-              title: Text(readingPlan.name),
+              title: Text(readingPlan.nameKey),
               centerTitle: true,
               floating: true,
             ),
