@@ -740,9 +740,9 @@
 		  ]
 		},
 		{
-		  "id": "nt_writers_365",
-		  "name_key": "nt_writers_365_name",
-		  "description_key": "nt_writers_365_description",
+		  "id": "nt_writers_365x2",
+		  "name_key": "nt_writers_365x2_name",
+		  "description_key": "nt_writers_365x2_description",
 		  "readings": [
 			  "Matt.1",
 			  "Matt.2:1-18",

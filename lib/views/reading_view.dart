@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../models/reading_plan.dart';
 import '../../models/user.dart';
 import 'widgets/stream_widget.dart';
@@ -57,7 +58,7 @@ class ReadingView extends StatelessWidget {
         return CustomScrollView(
           slivers: [
             SliverAppBar.medium(
-              title: Text(readingPlan.nameKey),
+              title: Text(Intl.message(readingPlan.nameKey)),
               centerTitle: true,
               floating: true,
             ),

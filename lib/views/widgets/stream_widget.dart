@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../models/reading_plan.dart';
 import 'reading_card.dart';
 
@@ -23,15 +24,15 @@ class StreamWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Text(
-            stream.id,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        //   child: Text(
+        //     Intl.message(stream.nameKey),
+        //     style: Theme.of(context).textTheme.titleLarge?.copyWith(
+        //       fontWeight: FontWeight.bold,
+        //     ),
+        //   ),
+        // ),
         SizedBox(
           height: 200, // Fixed height for the card container
           child: PageView.builder(

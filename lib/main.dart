@@ -1,8 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'adapters/hive_adapter.dart';
 import 'adapters/user_storage_adapter.dart';
+import 'l10n/app_localizations.dart';
 import 'models/reading_plan.dart';
 import 'models/user.dart';
 import 'providers/reading_plan_provider.dart';
@@ -24,6 +27,7 @@ void main() async {
   final userBox = await Hive.openBox<User>('userBox');
   final userStorageAdapter = UserStorageAdapter(userBox);
   globalUser = userStorageAdapter.loadUser() ?? User();
+  debugPrint('Main: globalUser.language = ${globalUser!.language}');
   userStorageAdapter.setUser(globalUser!);
 
   runApp(const MyApp());
@@ -46,8 +50,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         ),
-        // localizationsDelegates: AppLocalizations.localizationsDelegates,
-        // supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: MyHomePage(),
       ),
     );

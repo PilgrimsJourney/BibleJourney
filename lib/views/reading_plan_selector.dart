@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+import '../l10n/app_localizations.dart';
 import '../models/user.dart';
 import '../models/reading_plan.dart';
 import '../providers/reading_plan_provider.dart';
@@ -23,6 +25,7 @@ class _ReadingPlanSelectorState extends State<ReadingPlanSelector> {
     }
   }
 
+
   void copyReadingPlan(ReadingPlan plan, List<int> streamIndices) {
     final userPlan = UserReadingPlan.fromReadingPlan(plan, streamIndices);
     setState(() {
@@ -31,6 +34,18 @@ class _ReadingPlanSelectorState extends State<ReadingPlanSelector> {
     });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("Selected: ${userPlan.nameKey}")),
+    );
+  }
+
+  void startEntirePlan(ReadingPlan plan) {
+    final streamIndices = List<int>.generate(plan.streams.length, (i) => i);
+    final userPlan = UserReadingPlan.fromReadingPlan(plan, streamIndices);
+    setState(() {
+      globalUser!.readingPlan = userPlan;
+      Hive.box<User>('userBox').put('currentUser', globalUser!);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Started entire plan: ${userPlan.nameKey}")),
     );
   }
 
@@ -49,7 +64,7 @@ class _ReadingPlanSelectorState extends State<ReadingPlanSelector> {
       Hive.box<User>('userBox').put('currentUser', globalUser!);
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Added stream: ${plan.streams[streamIndex].nameKey}")),
+      SnackBar(content: Text("Added stream: ${AppLocalizations.of(context).translate(plan.streams[streamIndex].nameKey)}")),
     );
   }
 
@@ -65,10 +80,12 @@ class _ReadingPlanSelectorState extends State<ReadingPlanSelector> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
+    final l10ner = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text("Select Reading Plan")),
+      appBar: AppBar(title: Text(l10ner.translate("readingPlanTitle"))),
       body: FutureBuilder<List<ReadingPlan>>(
         future: Provider.of<ReadingPlanProvider>(context).getLoadedReadingPlans(),
         builder: (context, snapshot) {
@@ -87,16 +104,25 @@ class _ReadingPlanSelectorState extends State<ReadingPlanSelector> {
                   itemBuilder: (context, planIndex) {
                     final plan = plans[planIndex];
                     return Card(
-                      child: ExpansionTile(
-                        title: Text(plan.nameKey),
-                        subtitle: Text(plan.descriptionKey),
+                      child: Column(
                         children: [
+                          ListTile(
+                            title: Text(l10ner.translate(plan.nameKey)),
+                            subtitle: Text(l10ner.translate(plan.descriptionKey)),
+                            trailing: ElevatedButton(
+                              onPressed: () => startEntirePlan(plan),
+                              child: Text(l10ner.translate('startReadingPlan')),
+                            ),
+                          ),
+                          ExpansionTile(
+                            title: Text(l10ner.translate('availableStreams')),
+                            children: [
                           ...plan.streams.asMap().entries.map((entry) {
                             final streamIndex = entry.key;
                             final stream = entry.value;
                             return ListTile(
-                              title: Text(stream.nameKey),
-                              subtitle: Text(stream.descriptionKey),
+                              title: Text(l10ner.translate(stream.nameKey)),
+                              subtitle: Text(l10ner.translate(stream.descriptionKey)),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -119,7 +145,9 @@ class _ReadingPlanSelectorState extends State<ReadingPlanSelector> {
                           }),
                         ],
                       ),
-                    );
+					  ]
+                    )
+					);
                   },
                 ),
               ),
@@ -129,20 +157,20 @@ class _ReadingPlanSelectorState extends State<ReadingPlanSelector> {
                   builder: (context, Box<User> box, _) {
                     final userPlan = globalUser?.readingPlan;
                     if (userPlan == null) {
-                      return Center(child: Text("No plan selected"));
+                      return Center(child: Text(l10ner.translate("noPlanSelected")));
                     }
                     return ListView(
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Plan: ${userPlan.nameKey}",
+                            "Current Plan: ${AppLocalizations.of(context).translate(userPlan.nameKey)}",
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
                         ...userPlan.streams.map((stream) => ExpansionTile(
-                              title: Text(stream.nameKey),
-                              subtitle: Text(stream.descriptionKey),
+                              title: Text(l10ner.translate(stream.nameKey)),
+                              subtitle: Text(l10ner.translate(stream.descriptionKey)),
                               children: stream.readings.map((reading) {
                                 return CheckboxListTile(
                                   title: Text(reading.reference),
