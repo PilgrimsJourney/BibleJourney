@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'generator_page.dart';
 import 'favourite_page.dart';
 import 'views/reading_plan_selector.dart';
+import 'views/reading_view.dart';
 
 class MyHomePage extends StatefulWidget {
     @override
@@ -16,7 +17,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = GeneratorPage();
+        // page = GeneratorPage();
+        page = ReadingView();
         break;
       case 1:
         page = FavouritePage();

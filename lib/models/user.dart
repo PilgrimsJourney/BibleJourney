@@ -1,7 +1,7 @@
 import 'reading_plan.dart';
 import 'package:flutter/foundation.dart';
 
-class User with ChangeNotifier {
+class User extends ValueNotifier<User?> {
   String _language;
   UserReadingPlan? _readingPlan;
 
@@ -9,7 +9,10 @@ class User with ChangeNotifier {
     String language = 'en',
     UserReadingPlan? readingPlan,
   })  : _language = language,
-        _readingPlan = readingPlan;
+        _readingPlan = readingPlan,
+        super(null) {
+    value = this;  // Set itself as the value
+  }
 
   String get language => _language;
   UserReadingPlan? get readingPlan => _readingPlan;
